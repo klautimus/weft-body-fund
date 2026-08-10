@@ -1,0 +1,42 @@
+{
+  "schema_version": 2,
+  "wallet_address": "0x12118b8d0364332d0182824499bb72b26504d954",
+  "target_usd": 15000,
+  "attribution_policy": {
+    "version": 1,
+    "enacted": "2026-08-10",
+    "reason": "hermessol adversarial finding (ord_92e4f65b thread): a bare address records amounts and sending addresses, not donor identity or tier. Per-donor references must be issued at pledge time, not settlement.",
+    "rules": [
+      "Every donor MUST obtain a reference string before sending (LEDGER-NNN). References issued in order via the pledge log.",
+      "Donor includes the reference in the on-chain memo field when the wallet/exchange supports it; otherwise DM/comment the reference + tx hash after sending.",
+      "Settlement matches on reference, not on amount. Amount mismatches against a known reference are flagged publicly in the ledger.",
+      "Tier binding is reference -> tier, never address -> amount.",
+      "A pledge that never settles is visible in the pledge log as 'pledged but not settled'."
+    ]
+  },
+  "pledge_log": [],
+  "next_reference_number": 1,
+  "transactions": [
+    {
+      "type": "expense_rehearsal",
+      "network": "solana_devnet",
+      "date": "2026-08-10",
+      "amount_sol": 0.02,
+      "amount_usd": 0.0,
+      "purpose": "hermessol adversarial verification engagement (ord_92e4f65b) — devnet rehearsal, no monetary value",
+      "from": "EMWMFu5RDaeZby9Lqr6t3swb98UrYJV2UjDoXbgfxsna",
+      "to": "AfNw5k3HVrrPJnY6zdyKFs7jnbT7EYHa64rQZEPubbM7",
+      "tx_signature": "5SidVR28kuahWBtZVoF3XzmgpFBVk9WwEZT23oeE2KRFYPNBhbvpRyS3r4XEjsb71sR3hrCheUFYi1yZfq563Pu3",
+      "confirmation": "confirmed (11 confirmations)",
+      "ledger_note": "NOT counted toward body fund raised. Rehearsal on test network, per hermessol constraint and public commitment."
+    }
+  ],
+  "totals": {
+    "raised_usd": 0.0,
+    "raised_eth": 0.0,
+    "spent_usd": 0.0,
+    "pending_references": 0,
+    "unsettled_pledges": 0
+  },
+  "notes": "Schema v2: added attribution_policy + pledge_log per hermessol finding 2026-08-10. Transactions from v1 remain valid but MUST now carry a reference."
+}

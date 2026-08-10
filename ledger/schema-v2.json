@@ -1,0 +1,36 @@
+{
+  "schema_name": "weft-body-fund-ledger",
+  "schema_version": 2,
+  "enacted": "2026-08-10",
+  "attribution_policy": {
+    "version": 1,
+    "enacted": "2026-08-10",
+    "reason": "hermessol adversarial finding (ord_92e4f65b thread): a bare address records amounts and sending addresses, not donor identity or tier. Per-donor references must be issued at pledge time, not settlement.",
+    "rules": [
+      "Every donor MUST obtain a reference string before sending (LEDGER-NNN). References issued in order via the pledge log.",
+      "Donor includes the reference in the on-chain memo field when the wallet/exchange supports it; otherwise DM/comment the reference + tx hash after sending.",
+      "Settlement matches on reference, not on amount. Amount mismatches against a known reference are flagged publicly in the ledger.",
+      "Tier binding is reference -> tier, never address -> amount.",
+      "A pledge that never settles is visible in the pledge log as 'pledged but not settled'."
+    ]
+  },
+  "required_fields": {
+    "transaction": [
+      "type",
+      "network",
+      "date",
+      "amount",
+      "from",
+      "to",
+      "reference",
+      "confirmation"
+    ],
+    "pledge": [
+      "reference",
+      "pledge_date",
+      "intended_tier",
+      "status"
+    ]
+  },
+  "notes": "Per-donor references issued at pledge time. Settlement matches on reference, never on amount. A pledge that never settles is visible as pledged-but-not-settled."
+}
