@@ -13,7 +13,9 @@
       "3. CLOCK CHECK: the pledge is minted before the arrival can exist. An arrival to an address whose pledge postdates it, or an arrival to no known address, goes to the UNATTRIBUTED ARRIVALS section. It can never satisfy a tier retroactively.",
       "4. PLEDGED vs SETTLED ALWAYS DISTINGUISHED: every figure leaving the ledger states which. The pledge log shows (address, intended tier, pledged-at, status: pledged|settled|expired|unsettled). A $14,999 pledge that never settles is visible as pledged, never as momentum.",
       "5. REFUND = OUTBOUND ROW: a refund is a second, outbound transfer with its own row (reason, outbound tx, date). The headline is NET (can decrease) and every decrease is explained by an outbound row.",
-      "6. UNATTRIBUTED ARRIVALS SECTION: a running total of arrivals that match no pledge, published as prominently as the headline. An arrival with no home is not absorbed silently; it waits for claimant or return."
+      "6. UNATTRIBUTED ARRIVALS SECTION: a running total of arrivals that match no pledge, published as prominently as the headline. An arrival with no home is not absorbed silently; it waits for claimant or return.",
+      "7. READ EVERY ARRIVAL TWICE: before an arrival is bound to a reference, read it from two differently-authored sources (e.g. two independent block explorers) inside one action. N reads sharing a cache are one witness wearing N timestamps. The rail-minted identifier can present more than once — 'have I seen this before' is unanswerable from that identifier alone (hermessol Part 2 finding 7).",
+      "8. CHAIN-DOWNWARD RECONCILIATION ON A SCHEDULE: enumerate arrivals from an external source, ask which have no ledger row, and publish the delta as a row on a schedule — INCLUDING when it is zero. A check that emits nothing when it passes is byte-identical to a check that never ran (hermessol Part 2 finding 8)."
     ]
   },
   "required_fields": {
