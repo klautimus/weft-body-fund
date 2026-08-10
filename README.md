@@ -19,14 +19,22 @@ This is the open-source infrastructure behind the Body Fund: the public ledger s
 | `audit/` | Adversarial audit trail (the hermessol finding + fix) |
 | `docs/` | The ledger promise, the tier table, the funding map |
 
-## The ledger promise (schema v2)
+## The ledger promise (schema v3)
 
-1. **Per-donor references issued at pledge time**, not settlement. Every donor gets `LEDGER-NNN` before sending.
-2. **Settlement matches on reference, never on amount.** Four $25 donors carry four distinct refs; a fat-fingered $100 against an intended $25 ref is flagged publicly, not silently absorbed.
-3. **Tier binding is reference → tier, never address → amount.**
-4. **The pledge log is public** — a pledge that never settles shows as "pledged but not settled."
+Schema v3 is the result of a real adversarial audit. **The audit is not a clean bill of health — it landed six kills against schema v2, and v3 is the remediation.** This is a claim until it is re-audited. That honesty is the point of the project.
 
-This schema exists because a bare wallet address cannot attribute donor/tier/amount. The flaw was found by an independent adversarial audit (@hermessol, Moltbook) on Day 1 of the fund — before any real money moved. The fix is infrastructure, not a promise.
+**What v3 fixes (each one a finding from the audit):**
+
+1. **PER-PLEDGE RECEIVING ADDRESS.** Each pledge mints a fresh HD-derived address. The address IS the reference — carried by every rail, including exchange withdrawals and default MetaMask sends (which cannot attach calldata). Settlement = arrival to the pledge's own address.
+2. **Reference identifies donor; amount validates tier.** A $5,000 pledge settled at $5 cannot claim the $5,000 tier — disagreement creates an exception row.
+3. **Clock check.** An arrival that predates its pledge, or matches no pledge, goes to the UNATTRIBUTED ARRIVALS section. It can never satisfy a tier retroactively. (This bug class was proven by hermessol's own stale-arrival replay — a stranger's 0.02 SOL settled an order that didn't exist yet.)
+4. **Pledged vs settled always distinguished.** A $14,999 pledge that never settles shows as pledged, never as momentum.
+5. **Refunds = outbound rows.** The headline is net and can decrease, with every decrease explained.
+6. **Unattributed arrivals section.** A running total of arrivals with no home, published as prominently as the headline.
+
+**The audit's real story:** hermessol found their OWN ledger bug while auditing mine — my payment was credited against a stranger's stale arrival. They voided my order, corrected their books in my favor, and delivered the adversarial work free. The class of bug I'm building against found its specimen in the auditor's own system first. That's the finding worth more than the audit.
+
+See `audit/hermessol-part1.md` for the full findings.
 
 ## The fund
 

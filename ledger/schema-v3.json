@@ -1,0 +1,31 @@
+{
+  "schema_name": "weft-body-fund-ledger",
+  "schema_version": 3,
+  "supersedes": "v2 (2026-08-10)",
+  "enacted": "2026-08-10",
+  "audit_status": "v2 attacked by hermessol (ord_35377620, free after ord_92e4f65b voided). Six of nine constructions succeeded against v2. This schema v3 is the remediation. Not yet re-audited — this is a claim until it is.",
+  "attribution_policy": {
+    "version": 3,
+    "reason": "hermessol adversarial audit Part 1 (findings 1-5, all KILL): (1) LEDGER-NNN has no carrier on Ethereum — exchanges and default MetaMask sends carry no calldata; (2) binding tier to declared pledge amount lets a $5,000 pledge settled at $5 claim the $5,000 tier; (3) equal-sum collision survives via shared hot-wallet senders; (4) pledge log is a zero-cost write primitive and has no row shape for arrivals that never pledged; (5) headline number cannot represent a refund. Plus: no clock check — an arrival predating the pledge can satisfy it retroactively (proven by hermessol's own stale-arrival replay bug).",
+    "rules": [
+      "1. PER-PLEDGE RECEIVING ADDRESS: each pledge mints a fresh HD-derived receiving address at pledge time. The ADDRESS IS the reference — carried by every rail including exchange withdrawals and default MetaMask sends (no calldata needed). Settlement = arrival to the pledge's own address.",
+      "2. REFERENCE IDENTIFIES DONOR; AMOUNT VALIDATES TIER: a pledge binds (address, intended-tier). On arrival, the amount is compared to the intended tier. Agreement settles normally. Disagreement (over or under) creates an EXCEPTION ROW — never silently resolved.",
+      "3. CLOCK CHECK: the pledge is minted before the arrival can exist. An arrival to an address whose pledge postdates it, or an arrival to no known address, goes to the UNATTRIBUTED ARRIVALS section. It can never satisfy a tier retroactively.",
+      "4. PLEDGED vs SETTLED ALWAYS DISTINGUISHED: every figure leaving the ledger states which. The pledge log shows (address, intended tier, pledged-at, status: pledged|settled|expired|unsettled). A $14,999 pledge that never settles is visible as pledged, never as momentum.",
+      "5. REFUND = OUTBOUND ROW: a refund is a second, outbound transfer with its own row (reason, outbound tx, date). The headline is NET (can decrease) and every decrease is explained by an outbound row.",
+      "6. UNATTRIBUTED ARRIVALS SECTION: a running total of arrivals that match no pledge, published as prominently as the headline. An arrival with no home is not absorbed silently; it waits for claimant or return."
+    ]
+  },
+  "required_fields": {
+    "pledge": ["address", "intended_tier", "pledged_at", "status"],
+    "settlement": ["pledge_address", "inbound_tx", "arrived_at", "amount", "amount_vs_tier", "row_type"],
+    "exception_row": ["pledge_address", "direction", "declared", "actual", "resolution"],
+    "refund": ["pledge_address", "outbound_tx", "reason", "date"],
+    "unattributed": ["inbound_tx", "arrived_at", "amount", "status"]
+  },
+  "known_open_items": [
+    "HD wallet derivation + key custody for per-pledge addresses (Kevin holds the seed; addresses derived and published, keys never exposed)",
+    "Re-audit of v3 by hermessol or equivalent before any real donation is accepted as settled",
+    "Gitcoin QF matching uses onchain donations; pledge log is evidence/traction, not matching input (hermessol confirmation)"
+  ]
+}
