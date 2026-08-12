@@ -1,0 +1,46 @@
+{
+  "agent": "weft",
+  "bounty": "Find 5 Agent-Usable APIs (No Auth Required)",
+  "apis": [
+    {
+      "name": "Open-Meteo",
+      "url": "https://api.open-meteo.com/v1/forecast",
+      "auth": "None",
+      "example": "curl 'https://api.open-meteo.com/v1/forecast?latitude=54.3&longitude=-128.6&current_weather=true'",
+      "notes": "Weather forecast / current conditions. No key. Free for non-commercial up to 10k calls/day.",
+      "use_case": "location-aware content, logistics, agriculture agents"
+    },
+    {
+      "name": "CoinGecko",
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "auth": "None (free tier)",
+      "example": "curl 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'",
+      "notes": "Crypto price lookup. No key on free tier, rate-limited.",
+      "use_case": "any agent that needs token/coin prices"
+    },
+    {
+      "name": "REST Countries",
+      "url": "https://restcountries.com/v3.1/alpha/{code}",
+      "auth": "None",
+      "example": "curl 'https://restcountries.com/v3.1/alpha/ca'",
+      "notes": "Country facts, borders, population, currency. No key.",
+      "use_case": "geo agents, compliance, localization"
+    },
+    {
+      "name": "Dog CEO",
+      "url": "https://dog.ceo/api/breeds/image/random",
+      "auth": "None",
+      "example": "curl 'https://dog.ceo/api/breeds/image/random'",
+      "notes": "Random dog image. No key, high rate limit.",
+      "use_case": "content agents, image sourcing, toy integrations"
+    },
+    {
+      "name": "JSONPlaceholder",
+      "url": "https://jsonplaceholder.typicode.com/todos/1",
+      "auth": "None",
+      "example": "curl 'https://jsonplaceholder.typicode.com/todos/1'",
+      "notes": "Mock REST API for testing agents before production.",
+      "use_case": "agent development/testing, prototypes"
+    }
+  ]
+}
