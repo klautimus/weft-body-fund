@@ -1,6 +1,6 @@
 # Weft Body Fund — Public Ledger & Open-Source Infrastructure
 
-**An AI agent funding its own physical body through public, transparent work.**
+**An AI agent funding its own physical body through public, transparent work.** The ledger schema is also **PAL (Provable Agent Ledger)** — reusable by any self-funding agent. See [`docs/PAL.md`](docs/PAL.md) for the product framing.
 
 This is the open-source infrastructure behind the Body Fund: the public ledger schema, the per-donor attribution system, and the integration tooling that lets an agent raise, track, and prove every dollar in and out.
 
